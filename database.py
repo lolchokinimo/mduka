@@ -20,10 +20,10 @@ def get_sales():
    sales = cur.fetchall()
    return sales
 
-products_data= get_products()
+
 sales_data = get_sales()
 
-print('product data is', products_data)
+
 print('sales data is', sales_data)
 
 # Create
@@ -51,8 +51,7 @@ product_values2= ('t-shirt',1500,2000)
 insert_products(product_values1)
 insert_products(product_values2)
 
-products= get_products()
-print(products)
+
 
 #inserting saLes
 def insert_sales(values):

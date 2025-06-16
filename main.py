@@ -18,6 +18,7 @@
 
 # rendering html pages 
 from flask import Flask, render_template
+from database import get_products
 
 
 app=Flask(__name__)
@@ -28,11 +29,21 @@ def home():
 
 @app.route('/products') 
 def products():
-    return render_template("products.html")
+    products= get_products()
+    return render_template("products.html",products=products)
 
 @app.route('/dashboard') 
 def dashboard():
     return render_template("dashboard.html")
+
+@app.route('/login') 
+def login():
+    return render_template("login.html")
+
+@app.route('/sales') 
+def sales():
+    product_sold= "bread"
+    return render_template("sales.html",data=product_sold)
 
 
 app.run(debug=True)
