@@ -45,6 +45,10 @@ def sales():
     product_sold= "bread"
     return render_template("sales.html",data=product_sold)
 
+@app.route('/stock')
+def stock():
+    return render_template("stock.html")
+
 
 app.run(debug=True)
 
