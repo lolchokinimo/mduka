@@ -21,10 +21,10 @@ def get_sales():
    return sales
 
 
-sales_data = get_sales()
+# sales_data = get_sales()
 
 
-print('sales data is', sales_data)
+# print('sales data is', sales_data)
 
 # Create
 # Inserting Data (always use double quotations)
@@ -45,11 +45,11 @@ def insert_products(values):
 
 #since  data from database is fetched and comes as a list of tuples this means inserting data will be done in terms of tuples
 #below are sample values in a tuple to insert
-product_values1= ('shoes',1500,2000)
-product_values2= ('t-shirt',1500,2000)
+# product_values1= ('shoes',1500,2000)
+# product_values2= ('t-shirt',1500,2000)
 
-insert_products(product_values1)
-insert_products(product_values2)
+# insert_products(product_values1)
+# insert_products(product_values2)
 
 
 
@@ -59,12 +59,24 @@ def insert_sales(values):
    cur.execute(query,values)
    conn.commit()
 
-sales_values1= (1,2)
-sales_values2= (5,20)
-insert_sales(sales_values1)
-insert_sales(sales_values2)
-sales= get_sales()
-print(sales)
+# sales_values1= (1,2)
+# sales_values2= (5,20)
+# insert_sales(sales_values1)
+# insert_sales(sales_values2)
+# sales= get_sales()
+# print(sales)
+
+# inserting stock 
+def insert_stock(values):
+   query= "insert into stock(pid,stock_quantity,created_at)values(%s,%s,now())"
+   cur.execute(query,values)
+   conn.commit()
+
+# displaying stock 
+def get_stock():
+   cur.execute("select* from stock")
+   stock =cur.fetchall()
+   return stock
 
 
 

@@ -9,6 +9,7 @@
         integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.bootstrap5.css">
+
 </head>
 
 <body class="bg-cover container">
@@ -18,7 +19,7 @@
         style="background-color: rgba(134, 31, 108, 0.5); ">
         <div class="container">
             <a class="navbar-brand" href="#">
-                <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="Mduka" width="30" height="24">
+                <img src="/docs/5.3/assets/brand/bootstrap-logo.svg" alt="SokoHuru" width="30" height="24">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -76,54 +77,56 @@
         </div>
     </div>
 
-    <!-- make a sale form -->
-    <div class="mt-5">
-        <h2>Make a Sale</h2>
-        <form action="/add_sale" method="post">
-            <select name="pid" id="">
-                <option value="">Select Product</option>
-                {% for product in products %}
-                <option value="{{product[0]}}">{{product[1]}}</option>
-                {% endfor %}
-            </select><br><br>
-            <label for="">Quantity</label>
-            <input type="number" name="quantity"><br>
-            <button type="submit">Sale</button>
-        </form>
-    </div>
 
-    <!-- sales table  -->
-    <div>
-        <table id="example" class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Sale Id</th>
-                    <th>Product Id</th>
-                    <th>Quantity</th>
-                    <th>Sales date</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for id,pid,quantity,sales_date in sales%}
-                <tr>
-                    <td>{{id}}</td>
-                    <td>{{pid}}</td>
-                    <td>{{quantity}}</td>
-                    <td>{{sales_date}}</td>
-                    {% endfor%}
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="mt-5">
+    <h2>Adding Stock</h2>
+    <form action="/add_stock" method="post">
+        <select name="pid" id="">
+            <option value="">Select Product</option>
+            {% for product in products%}
+            <!-- the value takes the actual pid  -->
+            <option value="{{product[0]}}">{{product[1]}}</option>
+            {% endfor %}
+        </select><br>
+        <label for="">quantity</label>
+        <input type="number" name="stock"><br>
+        <button type="submit">ADD STOCK</button>
+    </form>
+</div>
 
 
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
-    <script src="https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap5.js"></script>
-    <script>
-        new DataTable('#example');
-    </script>
+<div>
+    <table id="example" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Stock ID</th>
+                <th>Product ID</th>
+                <th>Quantity</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in stock%}
+            <tr>
+                <td>{{i[0]}}</td>
+                <td>{{i[1]}}</td>
+                <td>{{i[2]}}</td>
+                <td>{{i[3]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap5.js"></script>
+<script>
+    new DataTable('#example');
+</script>
 </body>
 
 </html>
