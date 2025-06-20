@@ -46,7 +46,7 @@ def sales():
     sales= get_sales()
     return render_template("sales.html",products=products, sales=sales)
  
-#  adding new sale 
+#  make a new sale 
 @app.route('/add_sale', methods=['GET','POST'])
 def add_sale():
     pid= request.form['pid']
