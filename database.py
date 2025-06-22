@@ -79,6 +79,30 @@ def get_stock():
    return stock
 
 
+# making a sale and updating the stock 
+def make_sale_update_stock(values):
+    # Unpack values if it's a tuple like (pid, quantity)
+    pid, qty = values
+
+    # Insert into sales and return the inserted values
+    insert_query = """
+        INSERT INTO sales (pid, quantity, created_at)
+        VALUES (%s, %s, NOW())
+        RETURNING pid, quantity
+    """
+    cur.execute(insert_query, (pid, qty))
+    returned_pid, sold_qty = cur.fetchone()
+
+    # Update stock: subtract sold quantity
+    update_query = """
+        UPDATE stock
+        SET quantity = quantity - %s
+        WHERE pid = %s
+    """
+    cur.execute(update_query, (sold_qty, returned_pid))
+
+    conn.commit()
+
 
 
 
