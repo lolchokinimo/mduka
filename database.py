@@ -104,7 +104,47 @@ def make_sale_update_stock(values):
     conn.commit()
 
 
+def sales_per_product():
+    cur.execute("""
+        select product.name, sum(sales.quantity * products.selling_price) 
+                as revenue from products joinsales on products.id = sales.pid group by(products.name);
+    """)
+    profit = cur.fetchall()
+    return profit
 
+def profit_per_product():
+    cur.execute("""
+        select products.name ,sum(sales.quantity * (selling_price - buying_price)) as profit from products join 
+        sales on sales.pid = products.id group by products.name;
+    """)
+    profit_product = cur.fetchall()
+    return profit_product
+def sales_per_day():
+    cur.execute("""
+        select date(sales.created_at) as date, sum(sales.quantity * products.selling_price) 
+        as sales from sales join products on products.id = sales.pid group by date order by
+        date asc;
+    """)
+    sales_day = cur.fetchall()
+    return sales_day
+def profit_per_day():
+    cur.execute("""
+        select date(sales.created_at) as date ,sum(sales.quantity *(selling_price - buying_price))
+        as profit from sales join products on products.id = sales.pid group by date order by date
+        asc;
+    """)
+    profit_day = cur.fetchall()
+    return profit_day
+
+
+# 1.	attempt to update stock after making sale 
+def available_stock(pid):
+    cur.execute("select sum(stock.stock_quantity) from stock where pid = %s",(pid,))
+    total_stock = cur.fetchone()[0] or 0
+
+    cur.execute("select sum(sales.quantity) from sales where pid = %s" ,(pid,))
+    total_sold = cur.fetchone()[0] or 0
+    return total_stock - total_sold
 
 
 
