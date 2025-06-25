@@ -1,0 +1,25 @@
+
+
+    h3 {
+      text-shadow: 1px 1px 3px #400049;
+      margin-bottom: 1.5rem;
+      color: #f8b400;
+      text-align: center;
+    }
+
+    .table-container {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 8px;
+      color: #000;
+    }
+
+    .modal-content {
+      color: #000;
+    }
+
+    .modal-body label {
+      font-weight: 600;
+      color: #3a0ca3;
+    }
+  

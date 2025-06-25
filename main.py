@@ -17,15 +17,23 @@
 
 
 # rendering html pages 
-from flask import Flask, render_template, request, redirect,url_for
-from database import get_products, insert_products, get_stock, insert_stock, insert_sales, get_sales
+from flask import Flask, render_template, request, redirect,url_for,flash
+from database import get_products, insert_products, get_stock, insert_stock, insert_sales, get_sales, available_stock
 
 
 app=Flask(__name__)
 
+app.secret_key= 'kjjkhdjdnjkndn76'
+
+
 @app.route('/')
 def home():
     return render_template("index.html")
+
+@app.route('/homepage')
+def homepage():
+    flash("Homepage accessed succesfully",'success')
+    return render_template("homepage.html")
 
 @app.route('/products') 
 def products():
@@ -44,6 +52,7 @@ def login():
 def sales():
     products = get_products()
     sales= get_sales()
+
     return render_template("sales.html",products=products, sales=sales)
  
 #  make a new sale 
@@ -52,7 +61,12 @@ def add_sale():
     pid= request.form['pid']
     quantity= request.form['quantity']
     new_sale=(pid,quantity)
-    insert_sales(new_sale)
+    stock_available=available_stock(pid)
+    if stock_available < float(quantity):
+        flash("Insufficient stock,cant complete sale",'info')
+    else:
+        insert_sales(new_sale)
+        flash("Sale  succesfully")
     return redirect(url_for('sales'))
 
 
@@ -69,6 +83,7 @@ def add_stock():
     stock_quantity = request.form['stock']
     new_stock = (pid,stock_quantity)
     insert_stock(new_stock)
+    flash("Product added  succesfully")
     return redirect(url_for('stock'))
 
 

@@ -1,0 +1,23 @@
+.btn-outline-light {
+      border-color: #f8b400;
+      color: #f8b400;
+    }
+
+    .btn-outline-light:hover {
+      background-color: #f8b400;
+      color: #3a0ca3;
+      border-color: #f8b400;
+    }
+
+    h3 {
+      color: #f8b400;
+      text-shadow: 1px 1px 3px #400049;
+    }
+
+    .modal-content {
+      color: #000;
+    }
+
+    .lead {
+      font-size: 1.25rem;
+    }
