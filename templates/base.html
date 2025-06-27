@@ -9,15 +9,11 @@
     <title>{% block title %} {% endblock %}</title>
     {% block styles %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     {% endblock %}
 
     <style>
-        body {
-            background: linear-gradient(135deg, #86206c, #b84a8b);
-            min-height: 100vh;
-            color: #fff;
-            padding-top: 80px;
-        }
+
 
         .dataTables_wrapper {
             background-color: rgba(255, 255, 255, 0.9);
@@ -116,6 +112,7 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.min.js"></script>
+    
 </body>
 
 </html>

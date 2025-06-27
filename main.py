@@ -18,7 +18,7 @@
 
 # rendering html pages 
 from flask import Flask, render_template, request, redirect,url_for,flash
-from database import get_products, insert_products, get_stock, insert_stock, insert_sales, get_sales, available_stock
+from database import get_products, insert_products, get_stock, insert_stock, insert_sales, get_sales, available_stock, sales_per_product, profit_per_product, sales_per_day, profit_per_day
 
 
 app=Flask(__name__)
@@ -42,7 +42,24 @@ def products():
 
 @app.route('/dashboard') 
 def dashboard():
-    return render_template("dashboard.html")
+    # sales_per_day & profit_per_day 
+    sales_product= sales_per_product()
+    profit_product = profit_per_product()
+    # sales_per_day & profit_per_day 
+    sales_day = sales_per_day()
+    profit_day = profit_per_day()
+
+    # product related dash data (unpacking the tuple and placing the values into a list)
+    product_name = [i[0] for i in sales_product]
+    sale_prod =[float(i[1]) for i in sales_product]
+    prof_prod = [float(i[1]) for i in profit_product]
+
+    # date related dash data 
+    date = [str(i[0]) for i in sales_day]
+    sales_of_day = [float(i[1]) for i in sales_day]
+    profit_0f_day =[float(i[1]) for i in profit_day]
+
+    return render_template("dashboard.html",product_name=product_name,sale_prod=sale_prod,prof_prod=prof_prod, date=date,sales_of_day=sales_of_day,profit_0f_day=profit_0f_day  )
 
 @app.route('/login') 
 def login():

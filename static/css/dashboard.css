@@ -1,5 +1,6 @@
 /* Overlay to darken the background image */
-body::before {
+
+/* body::before {
     content: "";
     position: fixed;
     top: 0;
@@ -8,8 +9,17 @@ body::before {
     bottom: 0;
     background: rgba(0, 0, 0, 0.5);
     /* adjust opacity as needed */
-    z-index: -1;
-}
+    /* z-index: -9;
+} */ 
+
+  body {
+          background: linear-gradient(135deg, #e9e4e8, #e4e3e3);
+          min-height: 100vh;
+         
+          color: #fff;
+          padding-top: 80px;
+        }
+
 
 .dashboard-content {
     padding: 2rem;

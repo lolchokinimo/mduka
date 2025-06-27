@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block title %}Stock{% endblock %}
 
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/stock.css') }}">
+{% endblock %}
+
 {% block content %}
 <!-- add stock button  -->
  <div class="container">

@@ -2,6 +2,11 @@
 
 {% block title %}Sales Page{% endblock %}
 
+{% block styles %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sales.css') }}">
+{% endblock %}
+
 {% block content %}
 
   <!-- make a sale button  -->

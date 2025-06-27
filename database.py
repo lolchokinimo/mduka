@@ -106,8 +106,8 @@ def make_sale_update_stock(values):
 
 def sales_per_product():
     cur.execute("""
-        select product.name, sum(sales.quantity * products.selling_price) 
-                as revenue from products joinsales on products.id = sales.pid group by(products.name);
+        select products.name, sum(sales.quantity * products.selling_price) 
+                as revenue from products join sales on products.id = sales.pid group by(products.name);
     """)
     profit = cur.fetchall()
     return profit
@@ -119,6 +119,7 @@ def profit_per_product():
     """)
     profit_product = cur.fetchall()
     return profit_product
+
 def sales_per_day():
     cur.execute("""
         select date(sales.created_at) as date, sum(sales.quantity * products.selling_price) 
@@ -127,11 +128,12 @@ def sales_per_day():
     """)
     sales_day = cur.fetchall()
     return sales_day
+
 def profit_per_day():
     cur.execute("""
         select date(sales.created_at) as date ,sum(sales.quantity *(selling_price - buying_price))
         as profit from sales join products on products.id = sales.pid group by date order by date
-        asc;
+        desc;
     """)
     profit_day = cur.fetchall()
     return profit_day

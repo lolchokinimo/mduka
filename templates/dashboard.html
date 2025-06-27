@@ -18,6 +18,70 @@
     </div>
   </div>
 
- 
+  <!-- bar chart canvas  -->
+  <div class="container">
+        <canvas id="bar-chart" width="800" height="450"></canvas>
+    </div>
+
+    <!-- line cahrt canvas  -->
+     <div class="container">
+      <canvas id="line-chart" width="800" height="450"></canvas>
+     </div>
+     
+
+ <script>
+  // Bar chart
+new Chart(document.getElementById("bar-chart"), {
+    type: 'bar',
+    data: {
+      labels: {{product_name | safe}},
+      datasets: [
+        {
+          label: "Sales per Product (Ksh)",
+          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          data: {{sale_prod | safe}}
+        },
+          {
+          label: "Profit per Product (Ksh)",
+          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          data: {{prof_prod | safe}}
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'Predicted world population (millions) in 2050'
+      }
+    }
+});
+
+// line chart 
+new Chart(document.getElementById("line-chart"), {
+  type: 'line',
+  data: {
+    labels: {{date |safe}},
+    datasets: [{ 
+        data: {{sales_of_day | safe}},
+        label: "Sales of the Day",
+        borderColor: "#3e95cd",
+        fill: false
+      }, { 
+        data: {{profit_0f_day | safe}},
+        label: "Profit of the day",
+        borderColor: "#8e5ea2",
+        fill: false
+      }
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'Profits and Sales of the day'
+    }
+  }
+});
+ </script>
 
  {% endblock %}
