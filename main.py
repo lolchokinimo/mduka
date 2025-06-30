@@ -18,10 +18,12 @@
 
 # rendering html pages 
 from flask import Flask, render_template, request, redirect,url_for,flash
-from database import get_products, insert_products, get_stock, insert_stock, insert_sales, get_sales, available_stock, sales_per_product, profit_per_product, sales_per_day, profit_per_day
-
+from database import get_products, insert_products, get_stock, insert_stock, insert_sales, get_sales, available_stock, sales_per_product, profit_per_product, sales_per_day, profit_per_day, check_user, insert_user
+from flask_bcrypt import Bcrypt
 
 app=Flask(__name__)
+
+bcrypt= Bcrypt(app)
 
 app.secret_key= 'kjjkhdjdnjkndn76'
 
@@ -116,7 +118,34 @@ def add_products():
     # user is redirected 
     return redirect(url_for('products'))
 
+@app.route('/login')
+def log_in():
+    if request.method == "POST":
+        email = request.form['email']
+        password = request.form['password']
+        user = check_user(email)
+        if user:
+            pass
+    return render_template("login.html")
 
+# registering users
+@app.route('/register', methods=['GET','POST'])
+def register():
+    if request.method == 'POST':
+        full_name = request.form['fullname']
+        email = request.form['email']
+        phone_number = request.form['phone']
+        password = request.form['password']
+        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+        user = check_user(email)
+        if not user:
+            new_user = (full_name,email,phone_number,hashed_password)
+            insert_user(new_user)
+            flash("User registered successfully",'success')
+            return redirect(url_for('login'))
+        else:
+            flash("user already exists,please log in",'danger')
+    return render_template("register.html")
 
 app.run(debug=True)
 
